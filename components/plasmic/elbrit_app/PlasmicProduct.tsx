@@ -111,6 +111,7 @@ export type PlasmicProduct__OverridesType = {
   textInput?: Flex__<typeof TextInput>;
   svg?: Flex__<"svg">;
   loadingBoundary?: Flex__<typeof LoadingBoundary>;
+  img?: Flex__<typeof PlasmicImg__>;
   molProdCards?: Flex__<typeof MolProdCards>;
 };
 
@@ -1066,17 +1067,68 @@ function PlasmicProduct__RenderFunc(props: {
                   data-plasmic-override={overrides.loadingBoundary}
                   loadingState={
                     <DataCtxReader__>
-                      {$ctx => (
-                        <div
-                          className={classNames(
-                            projectcss.all,
-                            projectcss.__wab_text,
-                            sty.text__ogcj
-                          )}
-                        >
-                          {"Loading..."}
-                        </div>
-                      )}
+                      {$ctx =>
+                        (_par =>
+                          !_par ? [] : Array.isArray(_par) ? _par : [_par])([
+                          2, 3, 4
+                        ]).map((__plasmic_item_0, __plasmic_idx_0) => {
+                          const currentItem = __plasmic_item_0;
+                          const currentIndex = __plasmic_idx_0;
+                          return (
+                            <div
+                              className={classNames(
+                                projectcss.all,
+                                sty.freeBox__vQCd
+                              )}
+                              key={currentIndex}
+                              style={(() => {
+                                try {
+                                  return {
+                                    background:
+                                      "linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 37%, #e0e0e0 63%)",
+                                    backgroundSize: "400% 100%",
+                                    animation: "pl-shimmer 1.4s ease infinite",
+                                    borderRadius: "10px",
+                                    minHeight: "52px", // adjust if you want a taller/shorter bar
+                                    color: "transparent", // hides text if any
+                                    pointerEvents: "none", // optional: prevents interactions while 'skeleton'
+                                    userSelect: "none" // optional: avoids text selection flicker
+                                  };
+                                } catch (e) {
+                                  if (
+                                    e instanceof TypeError ||
+                                    e?.plasmicType ===
+                                      "PlasmicUndefinedDataError"
+                                  ) {
+                                    return undefined;
+                                  }
+                                  throw e;
+                                }
+                              })()}
+                            >
+                              <PlasmicImg__
+                                data-plasmic-name={"img"}
+                                data-plasmic-override={overrides.img}
+                                alt={""}
+                                className={classNames(sty.img)}
+                                displayHeight={"2rem"}
+                                displayMaxHeight={"none"}
+                                displayMaxWidth={"100%"}
+                                displayMinHeight={"0"}
+                                displayMinWidth={"0"}
+                                displayWidth={"auto"}
+                                loading={"lazy"}
+                                src={{
+                                  src: "/plasmic/elbrit_app/images/doubleRing1X10S200Px200Px1Gif.gif",
+                                  fullWidth: 200,
+                                  fullHeight: 200,
+                                  aspectRatio: undefined
+                                }}
+                              />
+                            </div>
+                          );
+                        })
+                      }
                     </DataCtxReader__>
                   }
                 >
@@ -1345,6 +1397,7 @@ const PlasmicDescendants = {
     "textInput",
     "svg",
     "loadingBoundary",
+    "img",
     "molProdCards"
   ],
   sideEffect: ["sideEffect"],
@@ -1355,13 +1408,15 @@ const PlasmicDescendants = {
     "textInput",
     "svg",
     "loadingBoundary",
+    "img",
     "molProdCards"
   ],
   popover2: ["popover2", "radioGroup2"],
   radioGroup2: ["radioGroup2"],
   textInput: ["textInput", "svg"],
   svg: ["svg"],
-  loadingBoundary: ["loadingBoundary", "molProdCards"],
+  loadingBoundary: ["loadingBoundary", "img", "molProdCards"],
+  img: ["img"],
   molProdCards: ["molProdCards"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
@@ -1376,6 +1431,7 @@ type NodeDefaultElementType = {
   textInput: typeof TextInput;
   svg: "svg";
   loadingBoundary: typeof LoadingBoundary;
+  img: typeof PlasmicImg__;
   molProdCards: typeof MolProdCards;
 };
 
@@ -1446,6 +1502,7 @@ export const PlasmicProduct = Object.assign(
     textInput: makeNodeComponent("textInput"),
     svg: makeNodeComponent("svg"),
     loadingBoundary: makeNodeComponent("loadingBoundary"),
+    img: makeNodeComponent("img"),
     molProdCards: makeNodeComponent("molProdCards"),
 
     // Metadata about props expected for PlasmicProduct

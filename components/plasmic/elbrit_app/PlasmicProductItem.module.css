@@ -91,6 +91,12 @@
   color: var(--token-UhfbOo34yAP-);
   align-self: center;
   height: var(--token-OJSN3W0Myvht);
+  transition-property: transform;
+  transition-duration: 1s;
+  transition-timing-function: ease-in;
+  -webkit-transition-property: transform;
+  -webkit-transition-timing-function: ease-in;
+  -webkit-transition-duration: 1s;
   border-radius: 45px;
   border-width: 1px;
   border-style: solid;
@@ -99,6 +105,9 @@
   .svg {
     height: var(--token-gzhQ56cI3Art);
   }
+}
+.root .svg:active {
+  box-shadow: 0px 4px 16px 0px var(--token-UhfbOo34yAP-);
 }
 .freeBox__usyLm {
   display: flex;

@@ -34,6 +34,13 @@
     align-content: flex-end;
   }
 }
+.root:hover:active {
+  box-shadow: 0px 4px 16px 0px var(--token-TXFQfNV_xIMg);
+  background: var(--token-yRMJ0C5rCs2P);
+}
+.root:hover:active:hover {
+  box-shadow: 0px 4px 16px 0px var(--token-UhfbOo34yAP-);
+}
 .freeBox__eZZg {
   display: flex;
   flex-direction: row;

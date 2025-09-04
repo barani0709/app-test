@@ -287,10 +287,26 @@
   max-width: 100%;
   object-fit: cover;
 }
-.text__ogcj {
-  position: relative;
+.freeBox__vQCd {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: auto;
   max-width: 100%;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  transform: none;
   min-width: 0;
+  border-radius: 15px;
+  padding: 4px;
+}
+.img {
+  object-fit: cover;
+  max-width: 100%;
+  height: var(--token-OJSN3W0Myvht);
+  flex-shrink: 0;
+}
+.img > picture > img {
+  object-fit: cover;
 }
