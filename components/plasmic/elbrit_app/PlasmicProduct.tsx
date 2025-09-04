@@ -73,6 +73,7 @@ import Popover from "../../Popover"; // plasmic-import: 0utbx7M9Fpbm/component
 import RadioGroup from "../../RadioGroup"; // plasmic-import: GYMz3GfToupI/component
 import Radio from "../../Radio"; // plasmic-import: FhAk9xxd_Y_r/component
 import TextInput from "../../TextInput"; // plasmic-import: n1KYdl7MSeQ4/component
+import { LoadingBoundary } from "@plasmicpkgs/plasmic-basic-components";
 import MolProdCards from "../../MolProdCards"; // plasmic-import: QLKbsHkUdyIn/component
 import { Fetcher } from "@plasmicapp/react-web/lib/data-sources";
 import { _useGlobalVariants } from "./plasmic"; // plasmic-import: oiawYdGgGKrh1ZZAv15gDZ/projectModule
@@ -109,6 +110,7 @@ export type PlasmicProduct__OverridesType = {
   radioGroup2?: Flex__<typeof RadioGroup>;
   textInput?: Flex__<typeof TextInput>;
   svg?: Flex__<"svg">;
+  loadingBoundary?: Flex__<typeof LoadingBoundary>;
   molProdCards?: Flex__<typeof MolProdCards>;
 };
 
@@ -180,12 +182,10 @@ function PlasmicProduct__RenderFunc(props: {
                         .toLowerCase()
                     )
                   );
-
-                const want = toSet($state.items);
-
-                return (
-                  $queries.product?.data?.response?.data?.Items?.edges ?? []
-                )
+                const want = toSet(
+                  $queries.product.data.response.data.Items.edges
+                );
+                return ($state.data ?? [])
                   .filter(e =>
                     want.has(
                       String(e?.node?.item_name ?? "")
@@ -427,7 +427,7 @@ function PlasmicProduct__RenderFunc(props: {
             onMount={async () => {
               const $steps = {};
 
-              $steps["graphqlQuery"] = true
+              $steps["graphqlQuery"] = false
                 ? (() => {
                     const actionArgs = {
                       dataOp: {
@@ -462,6 +462,97 @@ function PlasmicProduct__RenderFunc(props: {
                 typeof $steps["graphqlQuery"].then === "function"
               ) {
                 $steps["graphqlQuery"] = await $steps["graphqlQuery"];
+              }
+
+              $steps["updateData"] = false
+                ? (() => {
+                    const actionArgs = {
+                      variable: {
+                        objRoot: $state,
+                        variablePath: ["data"]
+                      },
+                      operation: 0,
+                      value: (() => {
+                        const edges =
+                          $steps.graphqlQuery?.data?.response?.data?.Items
+                            ?.edges ?? [];
+                        const sortVal = String($state.sort ?? "")
+                          .trim()
+                          .toLowerCase();
+                        const nameOf = e => String(e?.node?.item_name ?? "");
+                        const ptsOf = e => {
+                          const v = Number(e?.node?.whg_last_pts);
+                          return Number.isFinite(v) ? v : null;
+                        };
+                        const cmpText = (ea, eb) =>
+                          nameOf(ea).localeCompare(nameOf(eb), undefined, {
+                            sensitivity: "base"
+                          });
+                        const cmpNumAsc = (ea, eb) => {
+                          const a = ptsOf(ea),
+                            b = ptsOf(eb);
+                          if (a === null && b === null) return 0;
+                          if (a === null) return 1;
+                          if (b === null) return -1;
+                          return a - b;
+                        };
+                        const cmpNumDesc = (ea, eb) => {
+                          const a = ptsOf(ea),
+                            b = ptsOf(eb);
+                          if (a === null && b === null) return 0;
+                          if (a === null) return 1;
+                          if (b === null) return -1;
+                          return b - a;
+                        };
+                        if (!sortVal || sortVal === "missing(1)") {
+                          return edges;
+                        }
+                        if (["a-z", "az", "asc"].includes(sortVal)) {
+                          return [...edges].sort(cmpText);
+                        }
+                        if (["z-a", "za", "desc"].includes(sortVal)) {
+                          return [...edges].sort((a, b) => cmpText(b, a));
+                        }
+                        if (
+                          [
+                            "low-high",
+                            "low\u2192high",
+                            "low to high",
+                            "l-h"
+                          ].includes(sortVal)
+                        ) {
+                          return [...edges].sort(cmpNumAsc);
+                        }
+                        if (
+                          [
+                            "high-low",
+                            "high\u2192low",
+                            "high to low",
+                            "h-l"
+                          ].includes(sortVal)
+                        ) {
+                          return [...edges].sort(cmpNumDesc);
+                        }
+                        return edges;
+                      })()
+                    };
+                    return (({ variable, value, startIndex, deleteCount }) => {
+                      if (!variable) {
+                        return;
+                      }
+                      const { objRoot, variablePath } = variable;
+
+                      $stateSet(objRoot, variablePath, value);
+                      return value;
+                    })?.apply(null, [actionArgs]);
+                  })()
+                : undefined;
+              if (
+                $steps["updateData"] != null &&
+                typeof $steps["updateData"] === "object" &&
+                typeof $steps["updateData"].then === "function"
+              ) {
+                $steps["updateData"] = await $steps["updateData"];
               }
             }}
           />
@@ -970,248 +1061,271 @@ function PlasmicProduct__RenderFunc(props: {
                 </div>
               </div>
               <div className={classNames(projectcss.all, sty.freeBox__t13M)}>
-                {(_par => (!_par ? [] : Array.isArray(_par) ? _par : [_par]))(
-                  (() => {
-                    try {
-                      return (() => {
-                        // Get the raw edges
-                        const edges = $state.data ?? [];
-
-                        // Map to nodes
-                        const nodes = edges.map(x => x.node);
-
-                        // Normalize helper
-                        const norm = s =>
-                          String(s ?? "")
-                            .trim()
-                            .toLowerCase();
-
-                        // Format helper: number with max 2 decimals, drop .00
-                        const fmt = v => {
-                          const num = Number(v);
-                          if (!Number.isFinite(num)) return v;
-                          return Math.round(num * 100) / 100; // round to 2 decimals, stays numeric
-                        };
-
-                        // Apply formatting to price fields
-                        const formattedNodes = nodes.map(n => ({
-                          ...n,
-                          whg_last_mrp: fmt(n.whg_last_mrp),
-                          whg_last_ptr: fmt(n.whg_last_ptr),
-                          whg_last_pts: fmt(n.whg_last_pts)
-                        }));
-
-                        // Get filter value
-                        const filterVal = norm($state.filter);
-
-                        // If no filter, return full formatted data
-                        if (!filterVal) return formattedNodes;
-
-                        // Otherwise filter by item_name
-                        return formattedNodes.filter(n =>
-                          norm(n?.item_name).includes(filterVal)
-                        );
-                      })();
-                    } catch (e) {
-                      if (
-                        e instanceof TypeError ||
-                        e?.plasmicType === "PlasmicUndefinedDataError"
-                      ) {
-                        return [];
-                      }
-                      throw e;
-                    }
-                  })()
-                ).map((__plasmic_item_0, __plasmic_idx_0) => {
-                  const currentItem = __plasmic_item_0;
-                  const currentIndex = __plasmic_idx_0;
-                  return (
-                    <MolProdCards
-                      data-plasmic-name={"molProdCards"}
-                      data-plasmic-override={overrides.molProdCards}
-                      brand={(() => {
-                        try {
-                          return currentItem.brand__name;
-                        } catch (e) {
-                          if (
-                            e instanceof TypeError ||
-                            e?.plasmicType === "PlasmicUndefinedDataError"
-                          ) {
-                            return undefined;
+                <LoadingBoundary
+                  data-plasmic-name={"loadingBoundary"}
+                  data-plasmic-override={overrides.loadingBoundary}
+                  loadingState={
+                    <DataCtxReader__>
+                      {$ctx => (
+                        <div
+                          className={classNames(
+                            projectcss.all,
+                            projectcss.__wab_text,
+                            sty.text__ogcj
+                          )}
+                        >
+                          {"Loading..."}
+                        </div>
+                      )}
+                    </DataCtxReader__>
+                  }
+                >
+                  <DataCtxReader__>
+                    {$ctx =>
+                      (_par =>
+                        !_par ? [] : Array.isArray(_par) ? _par : [_par])(
+                        (() => {
+                          try {
+                            return (() => {
+                              const edges = $state.data ?? [];
+                              const nodes = edges.map(x => x.node);
+                              const norm = s =>
+                                String(s ?? "")
+                                  .trim()
+                                  .toLowerCase();
+                              const fmt = v => {
+                                const num = Number(v);
+                                if (!Number.isFinite(num)) return v;
+                                return Math.round(num * 100) / 100;
+                              };
+                              const formattedNodes = nodes.map(n => ({
+                                ...n,
+                                whg_last_mrp: fmt(n.whg_last_mrp),
+                                whg_last_ptr: fmt(n.whg_last_ptr),
+                                whg_last_pts: fmt(n.whg_last_pts)
+                              }));
+                              const filterVal = norm($state.filter);
+                              if (!filterVal) return formattedNodes;
+                              return formattedNodes.filter(n =>
+                                norm(n?.item_name).includes(filterVal)
+                              );
+                            })();
+                          } catch (e) {
+                            if (
+                              e instanceof TypeError ||
+                              e?.plasmicType === "PlasmicUndefinedDataError"
+                            ) {
+                              return [];
+                            }
+                            throw e;
                           }
-                          throw e;
-                        }
-                      })()}
-                      className={classNames("__wab_instance", sty.molProdCards)}
-                      items={(() => {
-                        try {
-                          return currentItem.item_name;
-                        } catch (e) {
-                          if (
-                            e instanceof TypeError ||
-                            e?.plasmicType === "PlasmicUndefinedDataError"
-                          ) {
-                            return undefined;
-                          }
-                          throw e;
-                        }
-                      })()}
-                      key={currentIndex}
-                      mobile={
-                        hasVariant(globalVariants, "screen", "mobileOnly")
-                          ? (() => {
+                        })()
+                      ).map((__plasmic_item_0, __plasmic_idx_0) => {
+                        const currentItem = __plasmic_item_0;
+                        const currentIndex = __plasmic_idx_0;
+                        return (
+                          <MolProdCards
+                            data-plasmic-name={"molProdCards"}
+                            data-plasmic-override={overrides.molProdCards}
+                            brand={(() => {
                               try {
-                                return $state.toggle;
+                                return currentItem.brand__name;
                               } catch (e) {
                                 if (
                                   e instanceof TypeError ||
                                   e?.plasmicType === "PlasmicUndefinedDataError"
                                 ) {
-                                  return [];
+                                  return undefined;
                                 }
                                 throw e;
                               }
-                            })()
-                          : undefined
-                      }
-                      mrp={(() => {
-                        try {
-                          return currentItem.whg_last_mrp;
-                        } catch (e) {
-                          if (
-                            e instanceof TypeError ||
-                            e?.plasmicType === "PlasmicUndefinedDataError"
-                          ) {
-                            return 120;
-                          }
-                          throw e;
-                        }
-                      })()}
-                      onClick={async event => {
-                        const $steps = {};
-
-                        $steps["updateItems"] = true
-                          ? (() => {
-                              const actionArgs = {
-                                variable: {
-                                  objRoot: $state,
-                                  variablePath: ["items"]
-                                },
-                                operation: 0,
-                                value: currentItem.item_name
-                              };
-                              return (({
-                                variable,
-                                value,
-                                startIndex,
-                                deleteCount
-                              }) => {
-                                if (!variable) {
-                                  return;
+                            })()}
+                            className={classNames(
+                              "__wab_instance",
+                              sty.molProdCards
+                            )}
+                            items={(() => {
+                              try {
+                                return currentItem.item_name;
+                              } catch (e) {
+                                if (
+                                  e instanceof TypeError ||
+                                  e?.plasmicType === "PlasmicUndefinedDataError"
+                                ) {
+                                  return undefined;
                                 }
-                                const { objRoot, variablePath } = variable;
-
-                                $stateSet(objRoot, variablePath, value);
-                                return value;
-                              })?.apply(null, [actionArgs]);
-                            })()
-                          : undefined;
-                        if (
-                          $steps["updateItems"] != null &&
-                          typeof $steps["updateItems"] === "object" &&
-                          typeof $steps["updateItems"].then === "function"
-                        ) {
-                          $steps["updateItems"] = await $steps["updateItems"];
-                        }
-
-                        $steps["updateItems2"] = true
-                          ? (() => {
-                              const actionArgs = {
-                                destination: `/product_item/${(() => {
-                                  try {
-                                    return $ctx.fn.encodeURIComponent(
-                                      $state.items
-                                    );
-                                  } catch (e) {
-                                    if (
-                                      e instanceof TypeError ||
-                                      e?.plasmicType ===
-                                        "PlasmicUndefinedDataError"
-                                    ) {
-                                      return undefined;
+                                throw e;
+                              }
+                            })()}
+                            key={currentIndex}
+                            mobile={
+                              hasVariant(globalVariants, "screen", "mobileOnly")
+                                ? (() => {
+                                    try {
+                                      return $state.toggle;
+                                    } catch (e) {
+                                      if (
+                                        e instanceof TypeError ||
+                                        e?.plasmicType ===
+                                          "PlasmicUndefinedDataError"
+                                      ) {
+                                        return [];
+                                      }
+                                      throw e;
                                     }
-                                    throw e;
-                                  }
-                                })()}`
-                              };
-                              return (({ destination }) => {
-                                if (
-                                  typeof destination === "string" &&
-                                  destination.startsWith("#")
-                                ) {
-                                  document
-                                    .getElementById(destination.substr(1))
-                                    .scrollIntoView({ behavior: "smooth" });
-                                } else {
-                                  __nextRouter?.push(destination);
-                                }
-                              })?.apply(null, [actionArgs]);
-                            })()
-                          : undefined;
-                        if (
-                          $steps["updateItems2"] != null &&
-                          typeof $steps["updateItems2"] === "object" &&
-                          typeof $steps["updateItems2"].then === "function"
-                        ) {
-                          $steps["updateItems2"] = await $steps["updateItems2"];
-                        }
-                      }}
-                      ptr={(() => {
-                        try {
-                          return currentItem.whg_last_ptr;
-                        } catch (e) {
-                          if (
-                            e instanceof TypeError ||
-                            e?.plasmicType === "PlasmicUndefinedDataError"
-                          ) {
-                            return 100;
-                          }
-                          throw e;
-                        }
-                      })()}
-                      pts={(() => {
-                        try {
-                          return currentItem.whg_last_pts;
-                        } catch (e) {
-                          if (
-                            e instanceof TypeError ||
-                            e?.plasmicType === "PlasmicUndefinedDataError"
-                          ) {
-                            return 80;
-                          }
-                          throw e;
-                        }
-                      })()}
-                      squar={
-                        hasVariant(globalVariants, "screen", "mobileOnly")
-                          ? undefined
-                          : (() => {
+                                  })()
+                                : undefined
+                            }
+                            mrp={(() => {
                               try {
-                                return $state.toggle;
+                                return currentItem.whg_last_mrp;
                               } catch (e) {
                                 if (
                                   e instanceof TypeError ||
                                   e?.plasmicType === "PlasmicUndefinedDataError"
                                 ) {
-                                  return "squar";
+                                  return 120;
                                 }
                                 throw e;
                               }
-                            })()
-                      }
-                    />
-                  );
-                })}
+                            })()}
+                            onClick={async event => {
+                              const $steps = {};
+
+                              $steps["updateItems"] = true
+                                ? (() => {
+                                    const actionArgs = {
+                                      variable: {
+                                        objRoot: $state,
+                                        variablePath: ["items"]
+                                      },
+                                      operation: 0,
+                                      value: currentItem.item_name
+                                    };
+                                    return (({
+                                      variable,
+                                      value,
+                                      startIndex,
+                                      deleteCount
+                                    }) => {
+                                      if (!variable) {
+                                        return;
+                                      }
+                                      const { objRoot, variablePath } =
+                                        variable;
+
+                                      $stateSet(objRoot, variablePath, value);
+                                      return value;
+                                    })?.apply(null, [actionArgs]);
+                                  })()
+                                : undefined;
+                              if (
+                                $steps["updateItems"] != null &&
+                                typeof $steps["updateItems"] === "object" &&
+                                typeof $steps["updateItems"].then === "function"
+                              ) {
+                                $steps["updateItems"] = await $steps[
+                                  "updateItems"
+                                ];
+                              }
+
+                              $steps["updateItems2"] = true
+                                ? (() => {
+                                    const actionArgs = {
+                                      destination: `/product_item/${(() => {
+                                        try {
+                                          return $ctx.fn.encodeURIComponent(
+                                            $state.items
+                                          );
+                                        } catch (e) {
+                                          if (
+                                            e instanceof TypeError ||
+                                            e?.plasmicType ===
+                                              "PlasmicUndefinedDataError"
+                                          ) {
+                                            return undefined;
+                                          }
+                                          throw e;
+                                        }
+                                      })()}`
+                                    };
+                                    return (({ destination }) => {
+                                      if (
+                                        typeof destination === "string" &&
+                                        destination.startsWith("#")
+                                      ) {
+                                        document
+                                          .getElementById(destination.substr(1))
+                                          .scrollIntoView({
+                                            behavior: "smooth"
+                                          });
+                                      } else {
+                                        __nextRouter?.push(destination);
+                                      }
+                                    })?.apply(null, [actionArgs]);
+                                  })()
+                                : undefined;
+                              if (
+                                $steps["updateItems2"] != null &&
+                                typeof $steps["updateItems2"] === "object" &&
+                                typeof $steps["updateItems2"].then ===
+                                  "function"
+                              ) {
+                                $steps["updateItems2"] = await $steps[
+                                  "updateItems2"
+                                ];
+                              }
+                            }}
+                            ptr={(() => {
+                              try {
+                                return currentItem.whg_last_ptr;
+                              } catch (e) {
+                                if (
+                                  e instanceof TypeError ||
+                                  e?.plasmicType === "PlasmicUndefinedDataError"
+                                ) {
+                                  return 100;
+                                }
+                                throw e;
+                              }
+                            })()}
+                            pts={(() => {
+                              try {
+                                return currentItem.whg_last_pts;
+                              } catch (e) {
+                                if (
+                                  e instanceof TypeError ||
+                                  e?.plasmicType === "PlasmicUndefinedDataError"
+                                ) {
+                                  return 80;
+                                }
+                                throw e;
+                              }
+                            })()}
+                            squar={
+                              hasVariant(globalVariants, "screen", "mobileOnly")
+                                ? undefined
+                                : (() => {
+                                    try {
+                                      return $state.toggle;
+                                    } catch (e) {
+                                      if (
+                                        e instanceof TypeError ||
+                                        e?.plasmicType ===
+                                          "PlasmicUndefinedDataError"
+                                      ) {
+                                        return "squar";
+                                      }
+                                      throw e;
+                                    }
+                                  })()
+                            }
+                          />
+                        );
+                      })
+                    }
+                  </DataCtxReader__>
+                </LoadingBoundary>
               </div>
             </div>
           </Layout>
@@ -1230,6 +1344,7 @@ const PlasmicDescendants = {
     "radioGroup2",
     "textInput",
     "svg",
+    "loadingBoundary",
     "molProdCards"
   ],
   sideEffect: ["sideEffect"],
@@ -1239,12 +1354,14 @@ const PlasmicDescendants = {
     "radioGroup2",
     "textInput",
     "svg",
+    "loadingBoundary",
     "molProdCards"
   ],
   popover2: ["popover2", "radioGroup2"],
   radioGroup2: ["radioGroup2"],
   textInput: ["textInput", "svg"],
   svg: ["svg"],
+  loadingBoundary: ["loadingBoundary", "molProdCards"],
   molProdCards: ["molProdCards"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
@@ -1258,6 +1375,7 @@ type NodeDefaultElementType = {
   radioGroup2: typeof RadioGroup;
   textInput: typeof TextInput;
   svg: "svg";
+  loadingBoundary: typeof LoadingBoundary;
   molProdCards: typeof MolProdCards;
 };
 
@@ -1327,6 +1445,7 @@ export const PlasmicProduct = Object.assign(
     radioGroup2: makeNodeComponent("radioGroup2"),
     textInput: makeNodeComponent("textInput"),
     svg: makeNodeComponent("svg"),
+    loadingBoundary: makeNodeComponent("loadingBoundary"),
     molProdCards: makeNodeComponent("molProdCards"),
 
     // Metadata about props expected for PlasmicProduct

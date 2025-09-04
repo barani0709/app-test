@@ -26,10 +26,6 @@
     grid-column: 4;
   }
 }
-.sideEffect:global(.__wab_instance) {
-  max-width: 100%;
-  object-fit: cover;
-}
 .layout:global(.__wab_instance) {
   max-width: 100%;
   width: 100%;
@@ -104,11 +100,39 @@
     height: var(--token-gzhQ56cI3Art);
   }
 }
+.freeBox__usyLm {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 0;
+  padding: 4px;
+}
 .combobox:global(.__wab_instance):global(.__wab_instance) {
   max-width: 100%;
 }
 .text__pP577 {
   font-size: var(--token-PQ6SvGTcXvie);
+}
+.loadingBoundary:global(.__wab_instance) {
+  max-width: 100%;
+  object-fit: cover;
+}
+.freeBox__oz6F {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 600px;
+  max-width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  background: #ffffff;
+  min-width: 0;
+  padding: 4px;
 }
 .freeBox__fdIxc {
   display: flex;
@@ -139,12 +163,12 @@
 }
 .freeBox__hL2L6 {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   position: relative;
   width: 45%;
   height: auto;
   max-width: 100%;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   padding: 0px;
 }
@@ -157,24 +181,6 @@
     padding: 4px;
   }
 }
-.molProdCards__lnHag:global(.__wab_instance) {
-  max-width: 100%;
-  left: 0;
-  top: 0;
-  z-index: 1;
-  position: absolute;
-  right: 0;
-  flex-shrink: 0;
-}
-@media (min-width: 0px) and (max-width: 768px) {
-  .molProdCards__lnHag:global(.__wab_instance) {
-    left: 0px;
-    top: 0px;
-    position: sticky;
-    flex-shrink: 0;
-    display: none;
-  }
-}
 .freeBox___1IGon {
   display: flex;
   flex-direction: column;
@@ -182,7 +188,7 @@
   width: 100%;
   height: auto;
   max-width: 100%;
-  justify-content: flex-start;
+  justify-content: flex-end;
   align-items: center;
   min-width: 0;
   padding: 30px 4px 4px;
@@ -212,6 +218,23 @@
 }
 .img > picture > img {
   object-fit: cover;
+}
+.molProdCards__lnHag:global(.__wab_instance) {
+  max-width: 100%;
+  left: auto;
+  top: auto;
+  z-index: 1;
+  position: relative;
+  flex-shrink: 0;
+}
+@media (min-width: 0px) and (max-width: 768px) {
+  .molProdCards__lnHag:global(.__wab_instance) {
+    left: auto;
+    top: auto;
+    position: relative;
+    flex-shrink: 0;
+    display: none;
+  }
 }
 .freeBox__hM7TU {
   display: flex;

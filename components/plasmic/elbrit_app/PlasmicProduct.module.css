@@ -268,14 +268,14 @@
   width: 100%;
   height: auto;
   max-width: 100%;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: stretch;
   column-gap: 10px;
   flex-wrap: wrap;
   align-content: flex-start;
   row-gap: 10px;
   min-width: 0;
-  padding: 0px;
+  padding: 0px 0px 15px;
 }
 @media (min-width: 0px) and (max-width: 768px) {
   .freeBox__t13M {
@@ -283,9 +283,14 @@
     padding: 0px;
   }
 }
-.molProdCards:global(.__wab_instance) {
-  transition-property: all;
-  transition-duration: 1s;
-  -webkit-transition-property: all;
-  -webkit-transition-duration: 1s;
+.loadingBoundary:global(.__wab_instance) {
+  max-width: 100%;
+  object-fit: cover;
+}
+.text__ogcj {
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  min-width: 0;
 }

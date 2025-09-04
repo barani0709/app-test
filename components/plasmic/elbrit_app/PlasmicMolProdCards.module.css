@@ -8,7 +8,7 @@
   align-items: center;
   position: relative;
   background: #ffffff;
-  box-shadow: 0px 4px 16px 0px #0000001a;
+  box-shadow: 0px 4px 16px 0px #0000000d;
   cursor: pointer;
   justify-self: flex-start;
   min-width: 0;
@@ -30,6 +30,16 @@
 .rootmobile {
   width: 10.5rem;
   height: auto;
+}
+.root:hover:active {
+  box-shadow: 0px 4px 16px 0px #00000033;
+}
+.root:hover {
+  border: 1px solid var(--token-yRMJ0C5rCs2P);
+}
+.root:hover:active:hover {
+  box-shadow: 0px 4px 16px 0px #00000036;
+  border-style: solid;
 }
 .freeBox___35CFy {
   display: flex;
