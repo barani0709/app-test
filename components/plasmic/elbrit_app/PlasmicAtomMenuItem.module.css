@@ -1,0 +1,116 @@
+.root {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  box-shadow: none;
+  cursor: pointer;
+  transition-property: all;
+  transition-duration: 1s;
+  position: relative;
+  justify-self: flex-start;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: stretch;
+  align-content: center;
+  column-gap: 15px;
+  min-width: 0;
+  min-height: 0;
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 1s;
+  border-radius: 8px;
+  padding: 0px;
+  border: 1px solid var(--token-S0SjW5oqDoSD);
+}
+@media (min-width: 0px) and (max-width: 768px) {
+  .root {
+    display: flex;
+    flex-direction: row;
+    height: 8vh;
+    row-gap: 0px;
+  }
+}
+.root:hover {
+  box-shadow: 0px 4px 16px 0px #3c292933;
+}
+.linkComponent:global(.__wab_instance) {
+  max-width: 100%;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  min-width: 0;
+  min-height: 0;
+}
+.button:global(.__wab_instance) {
+  max-width: 100%;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  align-content: center;
+  min-width: 0;
+  min-height: 0;
+}
+@media (min-width: 0px) and (max-width: 768px) {
+  .button:global(.__wab_instance) {
+    height: 100%;
+    min-height: 0;
+  }
+}
+.freeBox {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: stretch;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  flex-wrap: wrap;
+  align-content: center;
+  left: auto;
+  top: auto;
+  column-gap: 35px;
+  row-gap: 5px;
+  max-width: 100%;
+  min-width: 0;
+  padding: 4px;
+}
+@media (min-width: 0px) and (max-width: 768px) {
+  .freeBox {
+    column-gap: 15px;
+    row-gap: 0px;
+  }
+}
+.text {
+  position: relative;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  color: var(--token-UhfbOo34yAP-);
+  font-weight: 600;
+  font-size: var(--token-eVYj83L7jOWZ);
+  transition-property: all;
+  transition-duration: 1s;
+  left: auto;
+  top: auto;
+  text-align: center;
+  align-self: stretch;
+  z-index: 1;
+  min-height: 0;
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 1s;
+}
+@media (min-width: 0px) and (max-width: 768px) {
+  .text {
+    left: auto;
+    top: auto;
+    position: relative;
+    font-size: var(--token-eVYj83L7jOWZ);
+  }
+}

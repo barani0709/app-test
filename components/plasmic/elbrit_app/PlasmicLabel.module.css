@@ -1,0 +1,33 @@
+.root:global(.__wab_instance) {
+  position: relative;
+  color: var(--token-emgA65CIAei3);
+  font-family: var(--token-A_grR1l-YMfh);
+  font-size: var(--token-P2EB8APoXPOK);
+  line-height: var(--token-aS0l6gb-iZFF);
+}
+.freeBox {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  column-gap: var(--token-YbjSfZMZjpQg);
+}
+.slotTargetChildrensize_sm {
+  font-size: var(--token-eVYj83L7jOWZ);
+  line-height: var(--token-oU9C0l17ewgt);
+}
+.slotTargetChildrensize_lg {
+  font-size: var(--token-PQ6SvGTcXvie);
+  line-height: var(--token-PJSMkSYzilp3);
+}
+.text {
+  position: relative;
+  display: none;
+}
+.textrequirementIndicator_optional {
+  color: var(--token-Kz32cfmkCCmq);
+  display: block;
+}
+.textrequirementIndicator_required {
+  color: var(--token-IWP67w-wUXtW);
+  display: block;
+}

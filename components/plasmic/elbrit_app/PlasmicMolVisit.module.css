@@ -1,0 +1,35 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 12vw;
+  height: auto;
+  max-width: 100%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  justify-self: flex-start;
+  background: var(--token-S0SjW5oqDoSD);
+  border-radius: 8px;
+  padding: 8px;
+}
+.text__lgQdf {
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  color: var(--token-UhfbOo34yAP-);
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  min-width: 0;
+}
+.text__iOyZn {
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  font-weight: 500;
+  color: var(--token-UhfbOo34yAP-);
+  text-align: center;
+  min-width: 0;
+}

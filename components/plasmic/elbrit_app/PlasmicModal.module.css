@@ -1,0 +1,97 @@
+.ariaDialogTrigger:global(.__wab_instance) {
+  position: relative;
+}
+.svg__wSif {
+  position: relative;
+  height: 1em;
+}
+.svg___8TnQw {
+  position: relative;
+  height: 1em;
+}
+.ariaModal:global(.__wab_instance) {
+  background: var(--token-ZP7q8fwCjzIz);
+  display: block;
+  color: var(--token-emgA65CIAei3);
+  font-family: var(--token-A_grR1l-YMfh);
+  font-size: var(--token-P2EB8APoXPOK);
+  line-height: var(--token-aS0l6gb-iZFF);
+  outline-style: none;
+  box-shadow: 0px 24px 48px -12px #00000040;
+  border-radius: var(--token-JaUdzRqud0sX);
+}
+.pcls_Qr-fdqiDSuxu {
+  background: var(--token-TXFQfNV_xIMg);
+  left: 0px;
+  top: 0px;
+  z-index: 10;
+  position: fixed;
+  right: 0px;
+  bottom: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  outline: none;
+}
+.ariaDialog:global(.__wab_instance) {
+  max-width: 90vw;
+  object-fit: cover;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  outline-style: none;
+}
+.h3__jss72 {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  font-weight: 700;
+  font-size: var(--token-PQ6SvGTcXvie);
+  min-width: 0;
+  padding: var(--token-COOpAn5R3yTL);
+}
+.scrollableContent {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow: auto;
+  padding-left: var(--token-COOpAn5R3yTL);
+  padding-right: var(--token-COOpAn5R3yTL);
+}
+.freeBox__md11C {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: flex-start;
+  justify-content: flex-start;
+  row-gap: var(--token-_R22tqOQCWOp);
+}
+.text__pcoLp {
+  position: relative;
+}
+.freeBox__j8KQ5 {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  min-width: 0;
+  padding: var(--token-COOpAn5R3yTL);
+}
+.svg__ywxrS {
+  position: relative;
+  height: 1em;
+}
+.text__hj46 {
+  padding-left: 0px;
+}
+.svg__mwLAm {
+  position: relative;
+  height: 1em;
+}

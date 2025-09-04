@@ -1,0 +1,103 @@
+.root {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: 100px;
+  max-width: 100%;
+  position: relative;
+  background: var(--token-GGYj13plNx6v);
+  box-shadow: 0px 4px 16px 0px #76757533;
+  min-width: 25%;
+  transition-property: all;
+  transition-duration: 1s;
+  cursor: pointer;
+  transition-timing-function: ease-out;
+  transform: none;
+  column-gap: 15px;
+  -webkit-transition-property: all;
+  -webkit-transition-timing-function: ease-out;
+  -webkit-transition-duration: 1s;
+  border-radius: 10px;
+  padding: 8px;
+}
+@media (min-width: 0px) and (max-width: 768px) {
+  .root {
+    width: auto;
+    justify-self: flex-start;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+  }
+}
+.root:hover {
+  box-shadow: 0px 8px 31px 0px #f2404052;
+}
+.root:active {
+  outline-style: solid;
+  outline-width: thin;
+  outline-color: #1a181878;
+}
+.atomDynamicIcon:global(.__wab_instance):global(.__wab_instance) {
+  max-width: 90%;
+  height: 60px;
+  margin-right: 0px;
+  width: 57px;
+  flex-shrink: 0;
+}
+@media (min-width: 0px) and (max-width: 768px) {
+  .atomDynamicIcon:global(.__wab_instance):global(.__wab_instance) {
+    display: none;
+  }
+}
+.freeBox {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 0;
+  padding: 8px;
+}
+@media (min-width: 0px) and (max-width: 768px) {
+  .freeBox {
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    column-gap: 0px;
+  }
+}
+.text__oTjwl {
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--token-UhfbOo34yAP-);
+  min-width: 0;
+}
+@media (min-width: 0px) and (max-width: 768px) {
+  .text__oTjwl {
+    text-align: center;
+  }
+}
+.text__onSzg {
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--token-UhfbOo34yAP-);
+  min-width: 0;
+}
+@media (min-width: 0px) and (max-width: 768px) {
+  .text__onSzg {
+    text-align: center;
+  }
+}

@@ -1,0 +1,43 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  width: 38vw;
+  height: 280px;
+  max-width: 100%;
+  position: relative;
+  justify-self: flex-start;
+  overflow: auto;
+  padding: 8px;
+}
+.freeBox {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  column-gap: 0px;
+  min-width: 0;
+  padding: 2px;
+}
+.text__xOWwa {
+  position: relative;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  color: var(--token-UhfbOo34yAP-);
+  font-weight: 700;
+  font-size: 20px;
+}
+.text__echXb {
+  position: relative;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  color: var(--token-UhfbOo34yAP-);
+  font-size: 18px;
+}
