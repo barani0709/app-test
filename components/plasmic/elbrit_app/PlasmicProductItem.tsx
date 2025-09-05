@@ -647,7 +647,7 @@ function PlasmicProductItem__RenderFunc(props: {
                                 "mobileOnly"
                               )
                                 ? 3500
-                                : 2000,
+                                : 800,
                               swipeToSlide: true,
                               variableWidth: false,
                               vertical: false
@@ -733,7 +733,7 @@ function PlasmicProductItem__RenderFunc(props: {
                                                     const url = currentItem.url;
                                                     return (
                                                       url +
-                                                      "&twic=v1/cover=6:2/cover=6:3.30/resize=340x260"
+                                                      "&twic=v1/cover=6:2/cover=6:3/resize=340x220"
                                                     );
                                                   })();
                                                 } catch (e) {
@@ -753,7 +753,7 @@ function PlasmicProductItem__RenderFunc(props: {
                                                     const url = currentItem.url;
                                                     return (
                                                       url +
-                                                      "&twic=v1/cover=6:2/cover=6:3.30"
+                                                      "&twic=v1/cover=6:2/cover=6:2.8"
                                                     );
                                                   })();
                                                 } catch (e) {
@@ -809,7 +809,12 @@ function PlasmicProductItem__RenderFunc(props: {
                           })()}
                           mrp={(() => {
                             try {
-                              return $state.item.whg_last_mrp;
+                              return (() => {
+                                const formattedMRP = Number(
+                                  Number($state.item.whg_last_mrp).toFixed(2)
+                                );
+                                return formattedMRP;
+                              })();
                             } catch (e) {
                               if (
                                 e instanceof TypeError ||
@@ -822,7 +827,12 @@ function PlasmicProductItem__RenderFunc(props: {
                           })()}
                           ptr={(() => {
                             try {
-                              return $state.item.whg_last_ptr;
+                              return (() => {
+                                const formattedMRP = Number(
+                                  Number($state.item.whg_last_ptr).toFixed(2)
+                                );
+                                return formattedMRP;
+                              })();
                             } catch (e) {
                               if (
                                 e instanceof TypeError ||
@@ -835,7 +845,12 @@ function PlasmicProductItem__RenderFunc(props: {
                           })()}
                           pts={(() => {
                             try {
-                              return $state.item.whg_last_pts;
+                              return (() => {
+                                const formattedMRP = Number(
+                                  Number($state.item.whg_last_mrp).toFixed(2)
+                                );
+                                return formattedMRP;
+                              })();
                             } catch (e) {
                               if (
                                 e instanceof TypeError ||
@@ -890,45 +905,120 @@ function PlasmicProductItem__RenderFunc(props: {
                                 throw e;
                               }
                             })()}
-                            mrp={(() => {
-                              try {
-                                return $state.item.whg_last_mrp;
-                              } catch (e) {
-                                if (
-                                  e instanceof TypeError ||
-                                  e?.plasmicType === "PlasmicUndefinedDataError"
-                                ) {
-                                  return 120;
-                                }
-                                throw e;
-                              }
-                            })()}
-                            ptr={(() => {
-                              try {
-                                return $state.item.whg_last_ptr;
-                              } catch (e) {
-                                if (
-                                  e instanceof TypeError ||
-                                  e?.plasmicType === "PlasmicUndefinedDataError"
-                                ) {
-                                  return 100;
-                                }
-                                throw e;
-                              }
-                            })()}
-                            pts={(() => {
-                              try {
-                                return $state.item.whg_last_pts;
-                              } catch (e) {
-                                if (
-                                  e instanceof TypeError ||
-                                  e?.plasmicType === "PlasmicUndefinedDataError"
-                                ) {
-                                  return 80;
-                                }
-                                throw e;
-                              }
-                            })()}
+                            mrp={
+                              hasVariant(globalVariants, "screen", "mobileOnly")
+                                ? (() => {
+                                    try {
+                                      return (() => {
+                                        const formattedMRP = Number(
+                                          Number(
+                                            $state.item.whg_last_mrp
+                                          ).toFixed(2)
+                                        );
+                                        return formattedMRP;
+                                      })();
+                                    } catch (e) {
+                                      if (
+                                        e instanceof TypeError ||
+                                        e?.plasmicType ===
+                                          "PlasmicUndefinedDataError"
+                                      ) {
+                                        return 120;
+                                      }
+                                      throw e;
+                                    }
+                                  })()
+                                : (() => {
+                                    try {
+                                      return $state.item.whg_last_mrp;
+                                    } catch (e) {
+                                      if (
+                                        e instanceof TypeError ||
+                                        e?.plasmicType ===
+                                          "PlasmicUndefinedDataError"
+                                      ) {
+                                        return 120;
+                                      }
+                                      throw e;
+                                    }
+                                  })()
+                            }
+                            ptr={
+                              hasVariant(globalVariants, "screen", "mobileOnly")
+                                ? (() => {
+                                    try {
+                                      return (() => {
+                                        const formattedMRP = Number(
+                                          Number(
+                                            $state.item.whg_last_mrp
+                                          ).toFixed(2)
+                                        );
+                                        return formattedMRP;
+                                      })();
+                                    } catch (e) {
+                                      if (
+                                        e instanceof TypeError ||
+                                        e?.plasmicType ===
+                                          "PlasmicUndefinedDataError"
+                                      ) {
+                                        return 100;
+                                      }
+                                      throw e;
+                                    }
+                                  })()
+                                : (() => {
+                                    try {
+                                      return $state.item.whg_last_ptr;
+                                    } catch (e) {
+                                      if (
+                                        e instanceof TypeError ||
+                                        e?.plasmicType ===
+                                          "PlasmicUndefinedDataError"
+                                      ) {
+                                        return 100;
+                                      }
+                                      throw e;
+                                    }
+                                  })()
+                            }
+                            pts={
+                              hasVariant(globalVariants, "screen", "mobileOnly")
+                                ? (() => {
+                                    try {
+                                      return (() => {
+                                        const formattedMRP = Number(
+                                          Number(
+                                            $state.item.whg_last_mrp
+                                          ).toFixed(2)
+                                        );
+                                        return formattedMRP;
+                                      })();
+                                    } catch (e) {
+                                      if (
+                                        e instanceof TypeError ||
+                                        e?.plasmicType ===
+                                          "PlasmicUndefinedDataError"
+                                      ) {
+                                        return 80;
+                                      }
+                                      throw e;
+                                    }
+                                  })()
+                                : (() => {
+                                    try {
+                                      return $state.item.whg_last_pts;
+                                    } catch (e) {
+                                      if (
+                                        e instanceof TypeError ||
+                                        e?.plasmicType ===
+                                          "PlasmicUndefinedDataError"
+                                      ) {
+                                        return 80;
+                                      }
+                                      throw e;
+                                    }
+                                  })()
+                            }
                           />
                         ) : null}
                         <AntdTabs
@@ -968,6 +1058,127 @@ function PlasmicProductItem__RenderFunc(props: {
                                     sty.freeBox__jpSzk
                                   )}
                                 >
+                                  <div
+                                    className={classNames(
+                                      projectcss.all,
+                                      sty.freeBox___7P0Eh
+                                    )}
+                                  >
+                                    {(_par =>
+                                      !_par
+                                        ? []
+                                        : Array.isArray(_par)
+                                        ? _par
+                                        : [_par])(
+                                      (() => {
+                                        try {
+                                          return (() => {
+                                            let mapping = {
+                                              whg_composition: "Composition",
+                                              whg_mechanism_of_action:
+                                                "Mechanism of Action",
+                                              whg_advantages: "Advantages",
+                                              whg_dosage: "Dosage",
+                                              whg_market_size: "Market Size",
+                                              whg_patient_profile:
+                                                "Patient Profile",
+                                              whg_target_customers:
+                                                "Target Customers"
+                                            };
+                                            return Object.keys(mapping).map(
+                                              x => {
+                                                return {
+                                                  value: $state.item[x],
+                                                  name: mapping[x]
+                                                };
+                                              }
+                                            );
+                                          })();
+                                        } catch (e) {
+                                          if (
+                                            e instanceof TypeError ||
+                                            e?.plasmicType ===
+                                              "PlasmicUndefinedDataError"
+                                          ) {
+                                            return [];
+                                          }
+                                          throw e;
+                                        }
+                                      })()
+                                    ).map(
+                                      (__plasmic_item_0, __plasmic_idx_0) => {
+                                        const currentItem = __plasmic_item_0;
+                                        const currentIndex = __plasmic_idx_0;
+                                        return (
+                                          <Label
+                                            className={classNames(
+                                              "__wab_instance",
+                                              sty.label__qRmLz
+                                            )}
+                                            key={currentIndex}
+                                          >
+                                            <div
+                                              className={classNames(
+                                                projectcss.all,
+                                                sty.freeBox__qhQfq
+                                              )}
+                                            >
+                                              <div
+                                                className={classNames(
+                                                  projectcss.all,
+                                                  projectcss.__wab_text,
+                                                  sty.text__aQhB
+                                                )}
+                                              >
+                                                <React.Fragment>
+                                                  {(() => {
+                                                    try {
+                                                      return `${currentItem.name}: `;
+                                                    } catch (e) {
+                                                      if (
+                                                        e instanceof
+                                                          TypeError ||
+                                                        e?.plasmicType ===
+                                                          "PlasmicUndefinedDataError"
+                                                      ) {
+                                                        return "Market Size";
+                                                      }
+                                                      throw e;
+                                                    }
+                                                  })()}
+                                                </React.Fragment>
+                                              </div>
+                                              <div
+                                                className={classNames(
+                                                  projectcss.all,
+                                                  projectcss.__wab_text,
+                                                  sty.text__cjF3A
+                                                )}
+                                              >
+                                                <React.Fragment>
+                                                  {(() => {
+                                                    try {
+                                                      return currentItem.value;
+                                                    } catch (e) {
+                                                      if (
+                                                        e instanceof
+                                                          TypeError ||
+                                                        e?.plasmicType ===
+                                                          "PlasmicUndefinedDataError"
+                                                      ) {
+                                                        return "";
+                                                      }
+                                                      throw e;
+                                                    }
+                                                  })()}
+                                                </React.Fragment>
+                                              </div>
+                                            </div>
+                                          </Label>
+                                        );
+                                      }
+                                    )}
+                                  </div>
                                   <Label
                                     className={classNames(
                                       "__wab_instance",
@@ -1170,127 +1381,6 @@ function PlasmicProductItem__RenderFunc(props: {
                                       </div>
                                     </div>
                                   </Label>
-                                  <div
-                                    className={classNames(
-                                      projectcss.all,
-                                      sty.freeBox___7P0Eh
-                                    )}
-                                  >
-                                    {(_par =>
-                                      !_par
-                                        ? []
-                                        : Array.isArray(_par)
-                                        ? _par
-                                        : [_par])(
-                                      (() => {
-                                        try {
-                                          return (() => {
-                                            let mapping = {
-                                              whg_composition: "Composition",
-                                              whg_mechanism_of_action:
-                                                "Mechanism of Action",
-                                              whg_advantages: "Advantages",
-                                              whg_dosage: "Dosage",
-                                              whg_market_size: "Market Size",
-                                              whg_patient_profile:
-                                                "Patient Profile",
-                                              whg_target_customers:
-                                                "Target Customers"
-                                            };
-                                            return Object.keys(mapping).map(
-                                              x => {
-                                                return {
-                                                  value: $state.item[x],
-                                                  name: mapping[x]
-                                                };
-                                              }
-                                            );
-                                          })();
-                                        } catch (e) {
-                                          if (
-                                            e instanceof TypeError ||
-                                            e?.plasmicType ===
-                                              "PlasmicUndefinedDataError"
-                                          ) {
-                                            return [];
-                                          }
-                                          throw e;
-                                        }
-                                      })()
-                                    ).map(
-                                      (__plasmic_item_0, __plasmic_idx_0) => {
-                                        const currentItem = __plasmic_item_0;
-                                        const currentIndex = __plasmic_idx_0;
-                                        return (
-                                          <Label
-                                            className={classNames(
-                                              "__wab_instance",
-                                              sty.label__qRmLz
-                                            )}
-                                            key={currentIndex}
-                                          >
-                                            <div
-                                              className={classNames(
-                                                projectcss.all,
-                                                sty.freeBox__qhQfq
-                                              )}
-                                            >
-                                              <div
-                                                className={classNames(
-                                                  projectcss.all,
-                                                  projectcss.__wab_text,
-                                                  sty.text__aQhB
-                                                )}
-                                              >
-                                                <React.Fragment>
-                                                  {(() => {
-                                                    try {
-                                                      return `${currentItem.name}: `;
-                                                    } catch (e) {
-                                                      if (
-                                                        e instanceof
-                                                          TypeError ||
-                                                        e?.plasmicType ===
-                                                          "PlasmicUndefinedDataError"
-                                                      ) {
-                                                        return "Market Size";
-                                                      }
-                                                      throw e;
-                                                    }
-                                                  })()}
-                                                </React.Fragment>
-                                              </div>
-                                              <div
-                                                className={classNames(
-                                                  projectcss.all,
-                                                  projectcss.__wab_text,
-                                                  sty.text__cjF3A
-                                                )}
-                                              >
-                                                <React.Fragment>
-                                                  {(() => {
-                                                    try {
-                                                      return currentItem.value;
-                                                    } catch (e) {
-                                                      if (
-                                                        e instanceof
-                                                          TypeError ||
-                                                        e?.plasmicType ===
-                                                          "PlasmicUndefinedDataError"
-                                                      ) {
-                                                        return "";
-                                                      }
-                                                      throw e;
-                                                    }
-                                                  })()}
-                                                </React.Fragment>
-                                              </div>
-                                            </div>
-                                          </Label>
-                                        );
-                                      }
-                                    )}
-                                  </div>
                                 </div>
                               </AntdTabItem>
                               <AntdTabItem

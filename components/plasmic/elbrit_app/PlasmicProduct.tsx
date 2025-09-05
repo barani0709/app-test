@@ -1230,7 +1230,12 @@ function PlasmicProduct__RenderFunc(props: {
                             }
                             mrp={(() => {
                               try {
-                                return currentItem.whg_last_mrp;
+                                return (() => {
+                                  const formattedMRP = Number(
+                                    Number(currentItem.whg_last_mrp).toFixed(2)
+                                  );
+                                  return formattedMRP;
+                                })();
                               } catch (e) {
                                 if (
                                   e instanceof TypeError ||
@@ -1330,7 +1335,12 @@ function PlasmicProduct__RenderFunc(props: {
                             }}
                             ptr={(() => {
                               try {
-                                return currentItem.whg_last_ptr;
+                                return (() => {
+                                  const formattedMRP = Number(
+                                    Number(currentItem.whg_last_ptr).toFixed(2)
+                                  );
+                                  return formattedMRP;
+                                })();
                               } catch (e) {
                                 if (
                                   e instanceof TypeError ||
@@ -1343,7 +1353,12 @@ function PlasmicProduct__RenderFunc(props: {
                             })()}
                             pts={(() => {
                               try {
-                                return currentItem.whg_last_pts;
+                                return (() => {
+                                  const formattedMRP = Number(
+                                    Number(currentItem.whg_last_pts).toFixed(2)
+                                  );
+                                  return formattedMRP;
+                                })();
                               } catch (e) {
                                 if (
                                   e instanceof TypeError ||
